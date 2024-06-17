@@ -22,6 +22,7 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 			panic(err)
 		}
 
+		// Len will not change so fixed len arr is ideal
 		var requiredPackages [5]int
 
 		// Convert unit string to int
