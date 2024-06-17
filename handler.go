@@ -28,7 +28,6 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 		units, err := strconv.Atoi(unitString.Value)
 		if err != nil {
 			panic(err)
-
 		}
 
 		// Create copy of packages and order by size
@@ -98,7 +97,11 @@ func PacksHandler(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		// Do something
 	case "PUT":
-		// Do something
+		var unitString PackageSizeJSON
+		err := json.NewDecoder(r.Body).Decode(&unitString)
+		if err != nil {
+			panic(err)
+		}
 	case "DELETE":
 		// Do something
 	default:

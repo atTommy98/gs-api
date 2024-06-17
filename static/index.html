@@ -126,6 +126,7 @@
               placeholder="Enter required units"
               id="input"
               maxlength="10"
+              min="0"
               type="number" />
             <button class="button text" id="submit" onclick="handleSubmit()">
               Calculate Packages<span id="rocket">🚀</span>
@@ -190,6 +191,19 @@
             const column1 = document.createElement("td");
             column1.innerText = package.Size.toString();
             column1.contentEditable = true;
+            column1.addEventListener("keypress", (e) => {
+              if (e.charCode < 48 || e.charCode > 57) {
+                e.preventDefault();
+                return;
+              }
+              let len = event.target.innerText.trim().length;
+              const maxLen = 5;
+              const minLen = 1;
+              if (len >= maxLen) {
+                e.preventDefault();
+                return;
+              }
+            });
             const column2 = document.createElement("td");
             column2.innerText = "0";
             column2.setAttribute("id", `cell${package.Id}`);
@@ -206,6 +220,10 @@
           const tableCell = document.querySelector(`#cell${package.Id}`);
           tableCell.innerText = package.Required;
         });
+      }
+
+      async function handleSizeChange() {
+        
       }
 
       loadTable();
