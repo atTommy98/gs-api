@@ -167,7 +167,6 @@
       let unitsInputValue = 0;
       const submitButton = document.getElementById("submit");
       const inputField = document.getElementById("input");
-
       const cell5000 = document.getElementById("5000cell");
       const cell2000 = document.getElementById("2000cell");
       const cell1000 = document.getElementById("1000cell");
@@ -189,6 +188,7 @@
             "Access-Control-Allow-Origin": "*",
           },
         });
+
         const data = await response.json();
         const packages = data.Packages;
         cell5000.innerText = packages[4];
