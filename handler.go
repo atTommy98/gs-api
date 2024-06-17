@@ -62,3 +62,19 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 }
+
+func PacksHandler(w http.ResponseWriter, r *http.Request) {
+	switch r.Method {
+	case "GET":
+		// Do something
+	case "POST":
+		// Do something
+	case "PUT":
+		// Do something
+	case "DELETE":
+		// Do something
+	default:
+		w.WriteHeader(http.StatusBadRequest)
+	}
+
+}
