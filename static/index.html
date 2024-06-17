@@ -139,26 +139,6 @@
               <th>Package Size</th>
               <th>Number of Packages</th>
             </tr>
-            <!-- <tr>
-              <td>250</td>
-              <td id="250cell">0</td>
-            </tr>
-            <tr>
-              <td>500</td>
-              <td id="500cell">0</td>
-            </tr>
-            <tr>
-              <td>1000</td>
-              <td id="1000cell">0</td>
-            </tr>
-            <tr>
-              <td>2000</td>
-              <td id="2000cell">0</td>
-            </tr>
-            <tr>
-              <td>5000</td>
-              <td id="5000cell">0</td>
-            </tr> -->
           </table>
         </div>
       </div>
@@ -168,11 +148,6 @@
       const submitButton = document.getElementById("submit");
       const inputField = document.getElementById("input");
       const table = document.getElementById("table");
-      const cell5000 = document.getElementById("5000cell");
-      const cell2000 = document.getElementById("2000cell");
-      const cell1000 = document.getElementById("1000cell");
-      const cell500 = document.getElementById("500cell");
-      const cell250 = document.getElementById("250cell");
 
       inputField.addEventListener("input", handleChange);
 
@@ -190,13 +165,8 @@
           },
         });
 
-        const data = await response.json();
-        const packages = data.Packages;
-        cell5000.innerText = packages[4];
-        cell2000.innerText = packages[3];
-        cell1000.innerText = packages[2];
-        cell500.innerText = packages[1];
-        cell250.innerText = packages[0];
+        const packages = await response.json();
+        updateTable(packages);
       }
 
       function handleChange(e) {
@@ -229,6 +199,15 @@
           }
         });
       }
+
+      async function updateTable(packages) {
+        const column2Cells = [];
+        packages.map((package) => {
+          const tableCell = document.querySelector(`#cell${package.Id}`);
+          tableCell.innerText = package.Required;
+        });
+      }
+
       loadTable();
     </script>
   </body>

@@ -1,14 +1,11 @@
 package main
 
-type UnitRequestJSON struct {
+type UnitPostJSON struct {
 	Value string
 }
 
-type RequiredPackages struct {
-	Packages []int
-}
-
 type SPackage struct {
-	Id   int
-	Size int
+	Id       int
+	Size     int
+	Required int
 }

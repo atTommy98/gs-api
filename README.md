@@ -41,10 +41,12 @@ Optional Tasks
 
 ### API
 
-| Method | URL    | Description                                                                                                     |
-| ------ | ------ | --------------------------------------------------------------------------------------------------------------- |
-| GET    | /      | Retrieves HTML static homepage                                                                                  |
-| POST   | /units | Send units JSON `{ value: number }` and return num of packages `{ Packages: [n, n, n, n, n] }` in ascending order |
+| Method | URL    | Description                                                                                                  |
+| ------ | ------ | ------------------------------------------------------------------------------------------------------------ |
+| GET    | /      | Retrieves HTML static homepage                                                                               |
+| POST   | /units | Send units JSON `{ value: units }` and return packages array `{ Packages: [{Size: x, Required: y}, ...] }` |
+| GET    | /packs | Return the Packages array                                                                                    |
+| PUT    | /packs | Update/edit a package                                                                                        |
 
 - HTTP server that serves the HTML file from local folder. ✅
 - HandleFunc GET '/' route. Serve HTML file ✅
@@ -61,3 +63,6 @@ Optional Tasks
 - Some suggest using Gorilla Mux to route an API, but in the interest of learning and simplicity, I'd like to forego Gorilla Mux and instead use 'vanilla Go' where possible
 - Starting without optional task due to limited Go knowledge, would like to attempt to use slices to give min/max package options when adding/removing packages to conserve memory.
 - Deployment issues through Elastic Beanstalk and Heroku. Decided to go with Fly.io and use Docker to solve the issues. Recreated the routes using Mux Gorilla and served the HTML file using Go 1.16's 'embed' which seemed to solve the issues.
+- Working through the optional task of keeping it flexible is proving quite difficult. I know what I want to do, but how it's best done in Go is proving to be the problem. I'd like to just use PUT and keep the Packages array as length 10 and just edit the size values to be either 0 or some positive integer, using a value of 0 as 'no package'. I'm thinking in JavaScript and I believe that's my problem at the moment. What I can do in JavaScript is not how it's done in Go.
+- Tried using range Packages for the UnitsHandler calculation but as it creates a copy, it will not direct update the Required value of the original slice. Perhaps pointers are the answer here?
+- I managed to make the units calculator work, but I'm sure there's a better way in terms of memory heap efficiency to complete the calculations

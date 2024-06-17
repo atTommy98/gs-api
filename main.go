@@ -12,11 +12,11 @@ import (
 //go:embed static
 var static embed.FS
 
-// Define global array of fixed length packages, used later so there can be no more than 10 package sizes
-var PackageSizes = [10]SPackage{{1, 100}, {2, 500}, {3, 1000}, {4, 2000}, {5, 5000}, {6, 0}, {7, 0}, {8, 0}, {9, 0}, {10, 0}}
+// Define global slice of max capacity 10
+var Packages = CreatePackagesSlice()
 
 func main() {
-	fmt.Println(PackageSizes)
+	fmt.Println(Packages)
 
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", HomeHandler)
@@ -25,4 +25,16 @@ func main() {
 
 	fmt.Printf("Starting server on port :8080\n")
 	log.Fatal(http.ListenAndServe(":8080", router))
+}
+
+func CreatePackagesSlice() []SPackage {
+	slice := make([]SPackage, 5, 10)
+
+	slice[0] = SPackage{1, 250, 0}
+	slice[1] = SPackage{2, 500, 0}
+	slice[2] = SPackage{3, 1000, 0}
+	slice[3] = SPackage{4, 750, 0}
+	slice[4] = SPackage{5, 2, 0}
+
+	return slice
 }
