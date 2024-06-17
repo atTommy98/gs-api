@@ -44,7 +44,7 @@ Optional Tasks
 | Method | URL    | Description                                                                                                     |
 | ------ | ------ | --------------------------------------------------------------------------------------------------------------- |
 | GET    | /      | Retrieves HTML static homepage                                                                                  |
-| POST   | /units | Send units JSON `{ value: number }` and return num of packages `{Packages: [n, n, n, n, n]}` in ascending order |
+| POST   | /units | Send units JSON `{ value: number }` and return num of packages `{ Packages: [n, n, n, n, n] }` in ascending order |
 
 - HTTP server that serves the HTML file from local folder. ✅
 - HandleFunc GET '/' route. Serve HTML file ✅

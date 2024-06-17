@@ -33,26 +33,22 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		for units > 0 {
-			// Units greater than 5000, add a pack of 5000
-			if units >= 5000 {
+			switch {
+			case units >= 5000:
 				requiredPackages[4]++
-				units = units - 5000
-				// Units greater than 2000, but less than 5000, add a pack of 2000
-			} else if units >= 2000 && units < 5000 {
+				units -= 5000
+			case units >= 2000 && units < 5000:
 				requiredPackages[3]++
-				units = units - 2000
-				// Units greater than 1000, but less than 2000, add a pack of 1000
-			} else if units >= 1000 && units < 2000 {
+				units -= 2000
+			case units >= 1000 && units < 2000:
 				requiredPackages[2]++
-				units = units - 1000
-				// Units greater than 500, but less than 1000, add a pack of 500
-			} else if units >= 500 && units < 1000 {
+				units -= 1000
+			case units >= 500 && units < 1000:
 				requiredPackages[1]++
-				units = units - 500
-				// Units less than 500, add a pack of 250
-			} else {
+				units -= 500
+			case units < 500:
 				requiredPackages[0]++
-				units = units - 250
+				units -= 250
 			}
 		}
 
