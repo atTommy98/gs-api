@@ -12,7 +12,8 @@ import (
 //go:embed static
 var static embed.FS
 
-var PackageSizes = [10]int{250, 500, 1000, 2000, 5000, 0, 0, 0, 0, 0}
+// Define global array of fixed length packages, used later so there can be no more than 10 package sizes
+var PackageSizes = [10]SPackage{{1, 250}, {2, 500}, {3, 1000}, {4, 2000}, {5, 5000}, {6, 0}, {7, 0}, {8, 0}, {9, 0}, {10, 0}}
 
 func main() {
 	fmt.Println(PackageSizes)

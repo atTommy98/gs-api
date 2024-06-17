@@ -54,9 +54,7 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 
 		// Create JSON from the required packages array and send as response
 		JSONData := &RequiredPackages{Packages: requiredPackages[:]}
-		w.Header().Set("Content-Type", "application/json")
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.WriteHeader(http.StatusCreated)
+		handleJSONwrite(w)
 		json.NewEncoder(w).Encode(JSONData)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
@@ -66,7 +64,9 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 func PacksHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		// Do something
+		// Return PackageSizes array
+		handleJSONwrite(w)
+		json.NewEncoder(w).Encode(PackageSizes)
 	case "POST":
 		// Do something
 	case "PUT":
@@ -77,4 +77,10 @@ func PacksHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusBadRequest)
 	}
 
+}
+
+func handleJSONwrite(w http.ResponseWriter) {
+	w.Header().Set("Content-Type", "application/json")
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.WriteHeader(http.StatusCreated)
 }

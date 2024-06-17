@@ -7,3 +7,8 @@ type UnitRequestJSON struct {
 type RequiredPackages struct {
 	Packages []int
 }
+
+type SPackage struct {
+	Id   int
+	Size int
+}
