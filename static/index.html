@@ -134,12 +134,12 @@
         </div>
 
         <div class="bottom--container">
-          <table>
+          <table id="table">
             <tr>
               <th>Package Size</th>
               <th>Number of Packages</th>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>250</td>
               <td id="250cell">0</td>
             </tr>
@@ -158,7 +158,7 @@
             <tr>
               <td>5000</td>
               <td id="5000cell">0</td>
-            </tr>
+            </tr> -->
           </table>
         </div>
       </div>
@@ -167,6 +167,7 @@
       let unitsInputValue = 0;
       const submitButton = document.getElementById("submit");
       const inputField = document.getElementById("input");
+      const table = document.getElementById("table");
       const cell5000 = document.getElementById("5000cell");
       const cell2000 = document.getElementById("2000cell");
       const cell1000 = document.getElementById("1000cell");
@@ -201,6 +202,34 @@
       function handleChange(e) {
         unitsInputValue = e.target.value;
       }
+
+      async function loadTable() {
+        const response = await fetch("/packs", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+        const packageSizes = await response.json();
+
+        // Loop over sizes and create table row if package has a size
+        packageSizes.map((package) => {
+          if (package.Size != 0) {
+            const newRow = document.createElement("tr");
+            const column1 = document.createElement("td");
+            column1.innerText = package.Size.toString();
+            column1.contentEditable = true;
+            const column2 = document.createElement("td");
+            column2.innerText = "0";
+            column2.setAttribute("id", `cell${package.Id}`);
+            newRow.appendChild(column1);
+            newRow.appendChild(column2);
+            table.appendChild(newRow);
+          }
+        });
+      }
+      loadTable();
     </script>
   </body>
 </html>

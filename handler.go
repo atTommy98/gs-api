@@ -64,7 +64,7 @@ func UnitsHandler(w http.ResponseWriter, r *http.Request) {
 func PacksHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		// Return PackageSizes array
+		// Return PackageSizes array as JSON
 		handleJSONwrite(w)
 		json.NewEncoder(w).Encode(PackageSizes)
 	case "POST":
