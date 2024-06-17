@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gymshark Tech Test</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+      rel="stylesheet" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100vh;
+        width: 100vw;
+        margin: 0;
+        font-family: "Montserrat";
+        font-size: 22px;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        text-align: left;
+        margin-top: 5vh;
+        margin-bottom: 1vh;
+      }
+
+      .text {
+        color: black;
+      }
+
+      #main {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+      }
+
+      .content--container {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        max-width: 700px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .top--container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .top--container > div {
+        display: grid;
+        grid-template-columns: 1;
+        grid-template-rows: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        margin-block: 2rem;
+      }
+
+      .bottom--container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .input {
+        height: 100%;
+        width: 100%;
+        font-size: 1rem;
+        background-color: #ebebeb;
+        border: none;
+      }
+
+      .button {
+        height: 100%;
+        width: 100%;
+        padding: 10px;
+        text-transform: uppercase;
+        font-size: 1.25rem;
+        border: none;
+        background-color: #ebebeb;
+      }
+
+      .button:hover {
+        transform: scale(1.02);
+        transition: all 300ms;
+      }
+
+      table {
+        width: 100%;
+        margin-top: 1rem;
+        border-collapse: collapse;
+        margin: 10px;
+      }
+
+      th {
+      }
+
+      td {
+        text-align: center;
+      }
+
+      table,
+      td,
+      th {
+        border: solid 1px black;
+        padding: 5px;
+        padding-block: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <main id="main">
+      <div class="content--container">
+        <div class="top--container">
+          <h1>How many units need to be packaged?</h1>
+          <div>
+            <input
+              class="input text"
+              placeholder="Enter required units"
+              id="input"
+              maxlength="10"
+              type="number" />
+            <button class="button text" id="submit" onclick="handleSubmit()">
+              Calculate Packages<span id="rocket">🚀</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="bottom--container">
+          <table>
+            <tr>
+              <th>Package Size</th>
+              <th>Number of Packages</th>
+            </tr>
+            <tr>
+              <td>5000</td>
+              <td id="5000cell">0</td>
+            </tr>
+            <tr>
+              <td>2000</td>
+              <td id="2000cell">0</td>
+            </tr>
+            <tr>
+              <td>1000</td>
+              <td id="1000cell">0</td>
+            </tr>
+            <tr>
+              <td>500</td>
+              <td id="500cell">0</td>
+            </tr>
+            <tr>
+              <td>250</td>
+              <td id="250cell">0</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </main>
+    <script>
+      let unitsInputValue = 0;
+      const submitButton = document.getElementById("submit");
+      const inputField = document.getElementById("input");
+
+      const cell5000 = document.getElementById("5000cell");
+      const cell2000 = document.getElementById("2000cell");
+      const cell1000 = document.getElementById("1000cell");
+      const cell500 = document.getElementById("500cell");
+      const cell250 = document.getElementById("250cell");
+
+      inputField.addEventListener("input", handleChange);
+
+      async function handleSubmit() {
+        const body = {
+          value: unitsInputValue.toString(),
+        };
+
+        const response = await fetch("/units", {
+          method: "POST",
+          body: JSON.stringify(body),
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        });
+        const data = await response.json();
+        const packages = data.Packages;
+        cell5000.innerText = packages[4];
+        cell2000.innerText = packages[3];
+        cell1000.innerText = packages[2];
+        cell500.innerText = packages[1];
+        cell250.innerText = packages[0];
+      }
+
+      function handleChange(e) {
+        unitsInputValue = e.target.value;
+      }
+    </script>
+  </body>
+</html>
